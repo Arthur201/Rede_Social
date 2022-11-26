@@ -10,8 +10,8 @@ public class Post {
 	}
 	
 	static void timeline() {
-		for(Post p : Perfil.posts) {
-			System.out.print(p.data + " às " + p.hora + " -- " + p.conteudo);
+		for(int i = 0; i< Perfil.qtdPosts;i++) {
+			System.out.print(Perfil.posts[i].data + " às " + Perfil.posts[i].hora + " -- " + Perfil.posts[i].conteudo);
 			System.out.println();
 		}
 	}

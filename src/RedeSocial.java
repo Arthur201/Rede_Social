@@ -46,7 +46,7 @@ public class RedeSocial {
 					tem = false;
 				}
 			}
-		}	
+		}
 	}
 
 	static void fechar() {
@@ -56,30 +56,48 @@ public class RedeSocial {
 
 	static void entrar(String login) {
 		String senha;
-
+		boolean achou = false;
+		int i = 0;
 		for (Perfil usuario : usuarios) {
 			if (login.equals(usuario.login)) {
 				System.out.println("Digite sua senha: ");
 				senha = sc.next();
+				achou = true;
 				if (senha.equals(usuario.senha)) {
 					menuUsuario(usuario.nome);
 					break;
 				} else {
 					System.out.println("Senha incorreta");
+					do {
+						System.out.println("Digite novamente a senha: ");
+						senha = sc.next();
+						if (senha.equals(usuario.senha)) {
+							menuUsuario(usuario.nome);
+							break;
+						}
+						i++;
+					} while(i<3);
+					
+					if(i==3) {
+						System.out.println("Tentativas esgotadas");
+						temCadastro();
+					}
 				}
-			} else {
-				System.out.println("Usuário não encontrado. Por favor, faça um cadastro para continuar");
-				Perfil.cadastro();
 			}
+		}
+		if(achou == false) {
+			System.out.println("Usuário não encontrado. Por favor, faça um cadastro para continuar");
+			Perfil.cadastro();
 		}
 	}
 
 	static void menuUsuario(String nome) {
+		Scanner respostaMenuInterno = new Scanner(System.in);
 		String resposta;
 		System.out.println("Bem vindo " + nome);
 		System.out.print(
 				"O que você deseja fazer? \n Digite 'p' para fazer uma postagem \n Digite 't' para visualizar sua timeline \n Digite 's' para sair ");
-		resposta = sc.next();
+		resposta = respostaMenuInterno.next();
 
 		if (resposta.equals("p")) {
 			fazerPostagem();
@@ -91,6 +109,7 @@ public class RedeSocial {
 			System.out.println("Logout feito!");
 			menu();
 		}
+
 	}
 
 	static void validacaoRequisicao() {
@@ -111,7 +130,8 @@ public class RedeSocial {
 		System.out.println("Digite a hora da postagem: ");
 		hora = sc.next();
 		System.out.println("Escreva o conteúdo da sua postagem: ");
-		conteudo = sc.next();
+		sc.nextLine();
+		conteudo = sc.nextLine();
 
 		Perfil.postar(data, hora, conteudo);
 
