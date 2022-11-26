@@ -114,11 +114,11 @@ public class RedeSocial {
 
 	static void validacaoRequisicao() {
 
-		if (resposta.equals("C")) {
+		if (resposta.equalsIgnoreCase("C")) {
 			Perfil.cadastro();
-		} else if (resposta.equals("E")) {
+		} else if (resposta.equalsIgnoreCase("E")) {
 			temCadastro();
-		} else if (resposta.equals("F")) {
+		} else if (resposta.equalsIgnoreCase("F")) {
 			fechar();
 		}
 	}

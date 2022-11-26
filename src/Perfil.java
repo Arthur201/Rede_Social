@@ -25,11 +25,12 @@ public class Perfil {
 		Perfil pessoa = new Perfil();
 		Scanner sc = new Scanner(System.in);
 
-		System.out.println("Por favor, digite o nome de usuário que você deseja utilizar: ");
+		System.out.print("Por favor, digite o nome de usuário que você deseja utilizar: ");
 		pessoa.nome = sc.next();
-		System.out.println("Por favor, digite o email que você deseja utilizar: ");
+		System.out.print("Por favor, digite o email que você deseja utilizar: ");
 		pessoa.login = sc.next();
-		System.out.println("Por favor, digite a senha você deseja utilizar: ");
+		System.out.print("Por favor, digite a senha você deseja utilizar: ");
+		sc.nextLine();
 		pessoa.senha = sc.next();
 
 		RedeSocial.usuarios[RedeSocial.qtdUsers++] = pessoa;
