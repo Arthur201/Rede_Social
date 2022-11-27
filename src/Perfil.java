@@ -33,8 +33,8 @@ public class Perfil {
 		sc.nextLine();
 		pessoa.senha = sc.next();
 
-		RedeSocial.usuarios[RedeSocial.qtdUsers++] = pessoa;
-		
+		RedeSocial.usuarios[RedeSocial.qtdUsers] = pessoa;
+		RedeSocial.qtdUsers++;
 		RedeSocial.menu();
 		
 	}

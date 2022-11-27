@@ -14,8 +14,7 @@ public class RedeSocial {
 	}
 
 	static void menu() {
-		System.out.print(
-				"Bem vindo(a) à Rede Social! O que deseja fazer?\n Digite 'C' para Cadastrar-se\n Digite 'E' para entrar caso já tenha uma conta \n Digite 'F' para sair");
+		System.out.print("Bem vindo(a) à Rede Social! O que deseja fazer?\n Digite 'C' para Cadastrar-se\n Digite 'E' para entrar caso já tenha uma conta \n Digite 'F' para sair");
 		resposta = sc.next();
 		validacaoRequisicao();
 	}
@@ -41,9 +40,22 @@ public class RedeSocial {
 			for (int i = 0; i < qtdUsers; i++) {
 				if (usuarios[i].login.equals(login)) {
 					tem = true;
-					entrar(login);
 				} else {
 					tem = false;
+				}
+			}
+			if (tem == true) {
+				entrar(login);
+			} else {
+				System.out.print("Você ainda não possui uma conta. Deseja cadastrar-se?\n 'S' para sim\n 'N' para não ");
+				resposta = sc.next();
+
+				if (resposta.equals("S")) {
+					// System.out.println("PASSOU AQUI!!");
+					Perfil.cadastro();
+				} else if (resposta.equals("N")) {
+					// System.out.println("AQUI!!");
+					menu();
 				}
 			}
 		}
@@ -58,14 +70,17 @@ public class RedeSocial {
 		String senha;
 		boolean achou = false;
 		int i = 0;
+
 		for (Perfil usuario : usuarios) {
 			if (login.equals(usuario.login)) {
 				System.out.println("Digite sua senha: ");
 				senha = sc.next();
 				achou = true;
+
 				if (senha.equals(usuario.senha)) {
 					menuUsuario(usuario.nome);
 					break;
+
 				} else {
 					System.out.println("Senha incorreta");
 					do {
@@ -76,16 +91,16 @@ public class RedeSocial {
 							break;
 						}
 						i++;
-					} while(i<3);
-					
-					if(i==3) {
+					} while (i < 3);
+
+					if (i == 3) {
 						System.out.println("Tentativas esgotadas");
 						temCadastro();
 					}
 				}
 			}
 		}
-		if(achou == false) {
+		if (achou == false) {
 			System.out.println("Usuário não encontrado. Por favor, faça um cadastro para continuar");
 			Perfil.cadastro();
 		}
@@ -99,13 +114,13 @@ public class RedeSocial {
 				"O que você deseja fazer? \n Digite 'p' para fazer uma postagem \n Digite 't' para visualizar sua timeline \n Digite 's' para sair ");
 		resposta = respostaMenuInterno.next();
 
-		if (resposta.equals("p")) {
+		if (resposta.equalsIgnoreCase("p")) {
 			fazerPostagem();
 			menuUsuario(nome);
-		} else if (resposta.equals("t")) {
+		} else if (resposta.equalsIgnoreCase("t")) {
 			Post.timeline();
 			menuUsuario(nome);
-		} else if (resposta.equals("s")) {
+		} else if (resposta.equalsIgnoreCase("s")) {
 			System.out.println("Logout feito!");
 			menu();
 		}
