@@ -1,12 +1,14 @@
 
 public class Post {
 
-	String data;
-	String hora;
-	String conteudo;
-	
-	public static void main(String[] args) {
-		
+	public String data;
+	public String hora;
+	public String conteudo;
+
+	public Post(String data, String hora, String conteudo){
+		this.data = data;
+		this.hora = hora;
+		this.conteudo = conteudo;
 	}
 	
 	static void timeline() {
