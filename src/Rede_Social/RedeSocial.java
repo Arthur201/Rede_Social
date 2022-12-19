@@ -13,7 +13,7 @@ public class RedeSocial {
         redeSocial.menuInicial();
     }
 
-    protected void menuInicial() {
+    private void menuInicial() {
         try {
             System.out.print("Bem vindo(a) à Matrix, a sua Rede Social! O que deseja fazer?\n Digite 'C' para Cadastrar-se\n Digite 'E' para entrar caso já tenha uma conta \n Digite 'F' para sair");
             resposta = sc.next();
@@ -30,7 +30,7 @@ public class RedeSocial {
 
     }
 
-    protected void isCadastrado() {
+    private void isCadastrado() {
         boolean tem = false;
         String login;
         System.out.println("Digite seu login: ");
@@ -63,12 +63,12 @@ public class RedeSocial {
         }
     }
 
-    protected void fechar() {
+    private void fechar() {
         System.out.println("Matrix desligada com sucesso! Por favor, volte em breve!");
         System.exit(0);
     }
 
-    protected void entrar(String login) {
+    private void entrar(String login) {
         String senha;
         boolean achou = false;
         int i = 0;
@@ -99,17 +99,16 @@ public class RedeSocial {
     }
 
 
-    protected void menuUsuario(Perfil user) {
-        String nome = user.getNome();
+    private void menuUsuario(Perfil user) {
         Scanner respostaMenuInterno = new Scanner(System.in);
         String resposta;
-        System.out.println("Bem vindo à Matrix  " + nome + " !!!");
-        System.out.print("O que você deseja fazer? \n Digite 'p' para fazer uma postagem \n Digite 't' para visualizar sua timeline \n Digite 's' para sair ");
+        System.out.println("Bem vindo à Matrix  " + user.getNome() + " !!!");
+        System.out.print("O que você deseja fazer? \n Digite 'p' para fazer uma postagem \n Digite 't' para visualizar sua timeline \n Digite 's' para sair \n Digite '1' para alterar seu username \n Digite '2' para alterar sua senha ");
 
         try {
             resposta = respostaMenuInterno.next();
 
-            if (!resposta.equalsIgnoreCase("p") & !resposta.equalsIgnoreCase("t") & !resposta.equalsIgnoreCase("s")) {
+            if (!resposta.equalsIgnoreCase("p") & !resposta.equalsIgnoreCase("t") & !resposta.equalsIgnoreCase("s") & !resposta.equals("1") & !resposta.equals("2")){
                 throw new InputMismatchException("Não entendemos sua solicitação.");
 
             } else if (resposta.equalsIgnoreCase("p")) {
@@ -123,14 +122,21 @@ public class RedeSocial {
             } else if (resposta.equalsIgnoreCase("s")) {
                 System.out.println("Logout feito!");
                 menuInicial();
+
+            } else if (resposta.equals("1")) {
+                alterarUsername(user);
+
+            } else if (resposta.equals("2")) {
+                alterarSenha(user);
             }
+
         } catch (InputMismatchException e) {
             menuUsuario(user);
         }
 
     }
 
-    protected void validarRequisicaoDoUsuario() {
+    private void validarRequisicaoDoUsuario() {
 
         if (resposta.equalsIgnoreCase("C")) {
             cadastrar();
@@ -141,7 +147,7 @@ public class RedeSocial {
         }
     }
 
-    protected void fazerPostagem(Perfil user) {
+    private void fazerPostagem(Perfil user) {
         String conteudo;
         System.out.println("Escreva o que você está pensando: ");
         sc.nextLine();
@@ -151,7 +157,7 @@ public class RedeSocial {
 
     }
 
-    protected void cadastrar() {
+    private void cadastrar() {
         String nome, login, senha;
         Scanner sc = new Scanner(System.in);
         try{
@@ -176,19 +182,41 @@ public class RedeSocial {
             cadastrar();
         }
     }
-    protected void validarUsername(String nomeUsuario) throws UsuarioJaExisteException {
+    private void validarUsername(String nomeUsuario) throws UsuarioJaExisteException {
         for (Perfil usuario : usuarios) {
             if (nomeUsuario.equals(usuario.getNome())) {
                 throw new UsuarioJaExisteException("Este nome de usuário já existe.");
             }
         }
     }
-
-    protected void validarLogin(String login) throws LoginJaExisteException {
+    private void validarLogin(String login) throws LoginJaExisteException {
         for (Perfil usuario : usuarios) {
             if (login.equals(usuario.getLogin())) {
                 throw new LoginJaExisteException("Já existe uma conta cadastrada com esse login.");
             }
+        }
+    }
+
+    private void alterarSenha(Perfil usuario){
+        System.out.println("Digite sua nova senha: ");
+        String novaSenha = sc.next();
+        usuario.setSenha(novaSenha);
+
+        System.out.println("Senha alterada com sucesso!");
+        menuUsuario(usuario);
+    }
+
+    private void alterarUsername(Perfil usuario){
+        System.out.println("Digite seu novo nome de usuário: ");
+        String novoUsername = sc.next();
+        try {
+            validarUsername(novoUsername);
+            usuario.setNome(novoUsername);
+
+            System.out.println("Parabéns " + usuario.getNome() +  " seu username foi alterado com sucesso!");
+            menuUsuario(usuario);
+        } catch (UsuarioJaExisteException e) {
+            System.out.println(e.getMessage());
         }
     }
 
