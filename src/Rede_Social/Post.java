@@ -7,9 +7,9 @@ public class Post {
 
 	private final String LocalDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 	private final String LocalHour = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
-	protected String data;
-	protected String hora;
-	protected String conteudo;
+	private String data;
+	private String hora;
+	private String conteudo;
 
 	public Post(String conteudo){
 		this.conteudo = conteudo;

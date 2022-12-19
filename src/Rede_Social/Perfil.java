@@ -4,10 +4,10 @@ import java.util.*;
 
 public class Perfil {
 
-	protected String nome;
+	private String nome;
 	private String login;
 	private String senha;
-	private ArrayList<Rede_Social.Post> posts = new ArrayList<>();
+	private ArrayList<Post> posts = new ArrayList<>();
 
 	public Perfil(String nome, String login, String senha) {
 		this.nome = nome;
@@ -36,13 +36,13 @@ public class Perfil {
 	}
 
 	public void getTimeline() {
-		for (Rede_Social.Post p : posts) {
-			System.out.print(p.data + " às " + p.hora + " -- " + p.conteudo);
+		for (Post p : posts) {
+			System.out.print(p.getData() + " às " + p.getHora() + " -- " + p.getConteudo());
 			System.out.println();
 		}
 	}
 	public void postar(String conteudo) {
-		Rede_Social.Post post = new Rede_Social.Post(conteudo);
+		Post post = new Post(conteudo);
 		posts.add(post);
 
 	}
