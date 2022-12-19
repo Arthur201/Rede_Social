@@ -15,7 +15,7 @@ public class RedeSocial {
 
     protected void menuInicial() {
         try {
-            System.out.print("Bem vindo(a) à Rede Social! O que deseja fazer?\n Digite 'C' para Cadastrar-se\n Digite 'E' para entrar caso já tenha uma conta \n Digite 'F' para sair");
+            System.out.print("Bem vindo(a) à Matrix, a sua Rede Social! O que deseja fazer?\n Digite 'C' para Cadastrar-se\n Digite 'E' para entrar caso já tenha uma conta \n Digite 'F' para sair");
             resposta = sc.next();
 
             if (!resposta.equalsIgnoreCase("C") & !resposta.equalsIgnoreCase("E") & !resposta.equalsIgnoreCase("F")) {
@@ -64,7 +64,7 @@ public class RedeSocial {
     }
 
     protected void fechar() {
-        System.out.println("Application Closed!");
+        System.out.println("Matrix desligada com sucesso! Por favor, volte em breve!");
         System.exit(0);
     }
 
@@ -108,7 +108,7 @@ public class RedeSocial {
         String nome = user.getNome();
         Scanner respostaMenuInterno = new Scanner(System.in);
         String resposta;
-        System.out.println("Bem vindo " + nome);
+        System.out.println("Bem vindo à Matrix  " + nome + " !!!");
         System.out.print("O que você deseja fazer? \n Digite 'p' para fazer uma postagem \n Digite 't' para visualizar sua timeline \n Digite 's' para sair ");
 
         try {
@@ -169,19 +169,30 @@ public class RedeSocial {
             senha = sc.next();
 
             validarUsername(nome);
+            validarLogin(login);
 
             usuarios.add(new Perfil(nome, login, senha));
+
+            System.out.println("Cadastro realizado com sucesso! Parabéns e Bem Vindo à Matrix !");
             menuInicial();
 
-        } catch (UsuarioJaExisteException e) {
-            e.getMessage();
-            menuInicial();
+        } catch (UsuarioJaExisteException | LoginJaExisteException e) {
+            System.out.println(e.getMessage());
+            cadastrar();
         }
     }
     protected void validarUsername(String nomeUsuario) throws UsuarioJaExisteException {
         for (Perfil usuario : usuarios) {
             if (nomeUsuario.equals(usuario.getNome())) {
                 throw new UsuarioJaExisteException("Este nome de usuário já existe.");
+            }
+        }
+    }
+
+    protected void validarLogin(String login) throws LoginJaExisteException {
+        for (Perfil usuario : usuarios) {
+            if (login.equals(usuario.getLogin())) {
+                throw new LoginJaExisteException("Já existe uma conta cadastrada com esse login.");
             }
         }
     }
