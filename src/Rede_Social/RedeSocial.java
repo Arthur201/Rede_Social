@@ -217,6 +217,7 @@ public class RedeSocial {
             menuUsuario(usuario);
         } catch (UsuarioJaExisteException e) {
             System.out.println(e.getMessage());
+            menuUsuario(usuario);
         }
     }
 
