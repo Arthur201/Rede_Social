@@ -21,7 +21,7 @@ public class RedeSocial {
             if (!resposta.equalsIgnoreCase("C") & !resposta.equalsIgnoreCase("E") & !resposta.equalsIgnoreCase("F")) {
                 throw new InputMismatchException("Não entendemos sua requisição. Tente novamente! ");
             } else {
-                validarRequisicao();
+                validarRequisicaoDoUsuario();
             }
         } catch (InputMismatchException e) {
             System.out.println(e.getMessage());
@@ -55,9 +55,9 @@ public class RedeSocial {
             System.out.print("Você ainda não possui uma conta. Deseja cadastrar-se?\n 'S' para sim\n 'N' para não ");
             resposta = sc.next();
 
-            if (resposta.equals("S")) {
+            if (resposta.equalsIgnoreCase("S")) {
                 cadastrar();
-            } else if (resposta.equals("N")) {
+            } else if (resposta.equalsIgnoreCase("N")) {
                 menuInicial();
             }
         }
@@ -72,11 +72,6 @@ public class RedeSocial {
         String senha;
         boolean achou = false;
         int i = 0;
-
-        if (i == 3) {
-            System.out.println("Tentativas esgotadas");
-            isCadastrado();
-        }
 
         for (Perfil usuario : usuarios) {
             if (login.equals(usuario.getLogin())) {
@@ -135,7 +130,7 @@ public class RedeSocial {
 
     }
 
-    protected void validarRequisicao() {
+    protected void validarRequisicaoDoUsuario() {
 
         if (resposta.equalsIgnoreCase("C")) {
             cadastrar();
